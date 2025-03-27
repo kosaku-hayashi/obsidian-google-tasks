@@ -34,13 +34,15 @@ export class UpdateTaskModal extends Modal {
 				});
 				text.setValue(this.newTask.title);
 				text.inputEl.focus();
-			});
+		});
 
-		new Setting(contentEl).setName("Details").addText((text) => {
+		new Setting(contentEl).setName("Details").addTextArea((text) => {
 			text.onChange((value) => {
 				this.newTask.notes = value;
 			});
 			text.setValue(this.newTask.notes);
+			text.inputEl.rows = 4;
+			text.inputEl.style.resize = "none";
 		});
 
 		const dateSelectElement = customSetting(

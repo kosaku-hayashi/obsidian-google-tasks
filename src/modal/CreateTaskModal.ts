@@ -38,11 +38,13 @@ export class CreateTaskModal extends Modal {
 			.settingEl.querySelector("input")
 			.focus();
 
-		new Setting(contentEl).setName("Details").addText((text) =>
+		new Setting(contentEl).setName("Details").addTextArea((text) => {
 			text.onChange((value) => {
 				this.taskDetails = value;
-			})
-		);
+			});
+			text.inputEl.rows = 4;
+			text.inputEl.style.resize = "none";
+		});
 
 		const dateSelectElement = customSetting(
 			contentEl,
