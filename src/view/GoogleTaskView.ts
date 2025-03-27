@@ -232,6 +232,9 @@ createTaskElement(task:Task, containerEl: HTMLElement, isUnDoneList: boolean, is
 	taskTextContainer.createEl("span", {
 		cls: "googleTaskDetails",
 		text: task.notes,
+		attr: {
+        	style: this.plugin.settings.hideTaskDetails ? "display: none;" : "",
+    	},
 	});
 
 	if(!isSubTaskList && task.children?.length){
@@ -389,6 +392,12 @@ createTaskElement(task:Task, containerEl: HTMLElement, isUnDoneList: boolean, is
 
 			this.loadTaskView();
 		}
+	}
+
+	public updateTaskDetailsVisibility(): void {
+		document.querySelectorAll('.googleTaskDetails').forEach((el) => {
+			el.setAttribute("style", this.plugin.settings.hideTaskDetails ? "display: none;" : "");
+		});
 	}
 
 	public setRefreshInterval() {

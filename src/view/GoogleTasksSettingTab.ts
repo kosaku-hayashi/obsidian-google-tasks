@@ -148,6 +148,22 @@ export class GoogleTasksSettingTab extends PluginSettingTab {
 				});
 			});
 
+		new Setting(containerEl)
+			.setName("Hide Task Details")
+			.setDesc("Hides the task description")
+			.addToggle((toggle) => {
+				toggle.setValue(this.plugin.settings.hideTaskDetails);
+				toggle.onChange(async (state) => {
+					this.plugin.settings.hideTaskDetails = state;
+					await this.plugin.saveSettings();
+					this.app.workspace.getLeavesOfType(VIEW_TYPE_GOOGLE_TASK).forEach((leaf) => {
+						if (leaf.view instanceof GoogleTaskView) {
+							leaf.view.updateTaskDetailsVisibility();
+						}
+					});
+				});
+			});
+
 		const RefreshIntervalInput = customSetting(
 			containerEl,
 			"Refresh Interval",
